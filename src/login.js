@@ -12,7 +12,10 @@ async function login(page, browser) {
       await page.type("#email", FACEBOOK_EMAIL);
       await page.type("#pass", FACEBOOK_PASSWORD);
       await page.click("button[name=login]");
-      await page.waitForNavigation({ waitUntil: "networkidle2" });
+      await page.waitForNavigation({
+        waitUntil: "networkidle2",
+        timeout: 90000,
+      });
     }
     const cookies = await page.cookies();
     return cookies;
