@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
   const browser = await puppeteer.launch({
     args: chromium.args,
     defaultViewport: chromium.defaultViewport,
-    executablePath: CHROME_EXECUTABLE_PATH,
+    executablePath: await chromium.executablePath(),
     headless: chromium.headless,
   });
   main(browser);
