@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node scraper.js",
-    "vercel": "node scraper-vercel.js",
-    "dev": "nodemon scraper-vercel.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
