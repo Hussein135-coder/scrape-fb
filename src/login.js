@@ -1,3 +1,4 @@
+const { timeout } = require("puppeteer-core");
 const { FACEBOOK_EMAIL, FACEBOOK_PASSWORD } = require("./config");
 const { delay } = require("./utils");
 async function login(page, browser) {
@@ -5,6 +6,7 @@ async function login(page, browser) {
     console.log("Loging...");
     await page.goto("https://www.facebook.com/login", {
       waitUntil: "networkidle2",
+      timeout: 90000,
     });
     if (page.url().includes("login")) {
       await page.type("#email", FACEBOOK_EMAIL);
