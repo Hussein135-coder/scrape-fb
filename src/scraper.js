@@ -5,7 +5,7 @@ async function scrapePage(browser, url) {
   console.log("Scraping Page...");
   const page = await browser.newPage();
   try {
-    await page.goto(url, { waitUntil: "networkidle2" });
+    await page.goto(url, { waitUntil: "networkidle2", timeout: 60000 });
 
     const elements = await page.$$('div[role="button"]');
     for (const element of elements) {

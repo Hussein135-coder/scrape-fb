@@ -3,14 +3,13 @@ const login = require("./login");
 const { scrapeAllPages } = require("./scraper");
 const { delay } = require("./utils");
 const TelegramBot = require("node-telegram-bot-api");
-let bot;
+
+const bot = new TelegramBot(TELEGRAM_BOT_TOKEN, { polling: true });
 async function cronScrape(browser) {
   console.log("Croning...");
   const page = await browser.newPage();
   try {
-    bot = new TelegramBot(TELEGRAM_BOT_TOKEN, { polling: true });
-
-    await page.goto(URLS[0], { waitUntil: "networkidle2" });
+    await page.goto(URLS[0], { waitUntil: "networkidle2", timeout: 60000 });
     if (page.url().includes("login")) {
       console.log("Session expired, logging in again...");
       await login(page, browser);

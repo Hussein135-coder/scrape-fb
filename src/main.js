@@ -9,6 +9,7 @@ async function main(browser) {
   try {
     await page.goto("https://www.facebook.com/login", {
       waitUntil: "networkidle2",
+      timeout: 90000,
     });
     if (page.url().includes("login")) {
       await login(page, browser);
