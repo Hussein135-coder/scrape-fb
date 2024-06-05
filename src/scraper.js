@@ -50,6 +50,11 @@ async function scrapePage(browser, url) {
     return scrapePage(browser, url); // Retry scraping
   }
 }
+// Function to escape special characters for Markdown
+function escapeMarkdown(text) {
+  return text.replace(/(\*|_|`|\[|\])/g, '\\$1');
+}
+
 
 function scrapeAllPages(browser, bot) {
   console.log("Scraping All Pages...");
@@ -64,15 +69,22 @@ function scrapeAllPages(browser, bot) {
       );
 
       newData[url] = post;
+
       if (data[url]?.content !== post.content) {
-        const message = `اسم الصفحة: ${post.name}\n\nالمنشور: ${post.content}\n\n[رابط المنشور](${post.link})`;
+        const content = escapeMarkdown(post.content)
+        const message = `اسم الصفحة: ${post.name}\n\nالمنشور: ${content}\n\n[رابط المنشور](${post.link})`;
 
         TELEGRAM_CHAT_IDS.forEach(async (TELEGRAM_CHAT_ID) => {
           if (TELEGRAM_CHAT_ID) {
             console.log("Sending Post...");
-            await bot.sendMessage(TELEGRAM_CHAT_ID, message, {
-              parse_mode: "Markdown",
-            });
+            try{
+              await bot.sendMessage(TELEGRAM_CHAT_ID, message, {
+                parse_mode: "Markdown",
+              });
+            }catch{
+              console.log('Telegram Error')
+            }
+           
           }
         });
 

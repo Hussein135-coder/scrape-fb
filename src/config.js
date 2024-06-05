@@ -12,5 +12,5 @@ module.exports = {
     process.env.CHAT_ID_3,
   ],
   DATA_FILE_PATH: path.join(__dirname, "../data/data.json"),
-  URLS: [process.env.URL_1, process.env.URL_2, process.env.URL_3],
+  URLS: [process.env.URL_1, process.env.URL_2, process.env.URL_3,process.env.URL_4],
 };

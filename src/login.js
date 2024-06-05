@@ -6,7 +6,7 @@ async function login(page, browser) {
     console.log("Loging...");
     await page.goto("https://www.facebook.com/login", {
       waitUntil: "networkidle2",
-      timeout: 90000,
+      timeout: 60000,
     });
     if (page.url().includes("login")) {
       await page.type("#email", FACEBOOK_EMAIL);
@@ -14,9 +14,10 @@ async function login(page, browser) {
       await page.click("button[name=login]");
       await page.waitForNavigation({
         waitUntil: "networkidle2",
-        timeout: 90000,
+        timeout: 60000,
       });
     }
+    console.log("Login Done...");
     const cookies = await page.cookies();
     return cookies;
   } catch (error) {

@@ -1,10 +1,16 @@
 const express = require("express");
 const cors = require("cors");
-const puppeteer = require("puppeteer-core");
-const chromium = require("@sparticuz/chromium");
+const puppeteer = require("puppeteer");
+const { execSync } = require('child_process');
 
-const { CHROME_EXECUTABLE_PATH } = require("./src/config");
 const main = require("./src/main");
+
+process.env.LD_LIBRARY_PATH = '../chromium-libs/usr/lib/x86_64-linux-gnu';
+process.env.LD_LIBRARY_PATH += ':../chromium-libs/lib/x86_64-linux-gnu';
+process.env.LD_LIBRARY_PATH += ':../chromium-libs/usr/lib';
+process.env.LD_LIBRARY_PATH += ':../chromium-libs/usr/lib/x86_64-linux-gnu/';
+
+
 
 const app = express();
 app.use(cors());
@@ -17,10 +23,8 @@ app.get("/", (req, res) => {
 
 (async () => {
   const browser = await puppeteer.launch({
-    args: chromium.args,
-    defaultViewport: chromium.defaultViewport,
-    executablePath: await chromium.executablePath(),
-    headless: chromium.headless,
+    executablePath: '../chromium/chrome-linux/chrome',
+    headless: true // Ensure the browser runs in headless mode
   });
   main(browser);
 })();
